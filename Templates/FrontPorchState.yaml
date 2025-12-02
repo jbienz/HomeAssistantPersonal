@@ -1,0 +1,55 @@
+- unique_id: frontporchstate
+  triggers:
+    - trigger: event
+      event_type: "LookFrontPorch"
+    - trigger: homeassistant
+      event: start
+  actions:
+    - action: ai_task.generate_data
+      data:
+        entity_id: ai_task.ollama_ai_task
+        task_name: Look Front Porch
+        instructions: >-
+          This is my front door. Please analyze the image and provide statistics.
+        structure:
+          delivery_inprogress:
+            description: "Whether a person is delivering a package."
+            required: true
+            selector:
+              boolean:
+          package_count:
+            description: "The number of packages visible."
+            required: true
+            selector:
+              number:
+          humans_present:
+            description: "The number of humans visible in the image."
+            required: true
+            selector:
+              number:
+          animals_present:
+            description: "The number of animals visible in the image."
+            required: true
+            selector:
+              number:
+        attachments:
+          media_content_id: media-source://camera/camera.ring_front_liveview
+          media_content_type: image/jpeg
+      response_variable: result
+  sensor:
+    - name: "Delivery in Progress"
+      unique_id: delivery_inprogress
+      state: "{{ result.data.delivery_inprogress }}"
+      state_class: measurement
+    - name: "Package Count"
+      unique_id: package_count
+      state: "{{ result.data.package_count }}"
+      state_class: measurement
+    - name: "Humans Present"
+      unique_id: humans_present
+      state: "{{ result.data.humans_present }}"
+      state_class: measurement
+    - name: "Animals Present"
+      unique_id: animals_present
+      state: "{{ result.data.animals_present }}"
+      state_class: measurement        
