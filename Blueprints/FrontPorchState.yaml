@@ -1,6 +1,6 @@
 blueprint:
-  name: Motion-activated Light
-  description: Turn on a light when motion is detected.
+  name: Front Port State
+  description: AI analysis of front porch camera images to detect deliveries, packages, humans, and animals.
   domain: template
 triggers:
   - trigger: event
