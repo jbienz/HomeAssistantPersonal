@@ -45,11 +45,14 @@
       unique_id: package_count
       state: "{{ result.data.package_count }}"
       state_class: measurement
+      unit_of_measurement: "packages"
     - name: "Humans Present"
       unique_id: humans_present
       state: "{{ result.data.humans_present }}"
       state_class: measurement
+      unit_of_measurement: "people"
     - name: "Animals Present"
       unique_id: animals_present
       state: "{{ result.data.animals_present }}"
-      state_class: measurement        
+      state_class: measurement  
+      unit_of_measurement: "animals"
